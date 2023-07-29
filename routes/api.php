@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function (){
     Route::post('get_user_email', [AuthApiController::class, 'getUserEmail']);
+    Route::post('user_login', [AuthApiController::class, 'userLogin']);
 });

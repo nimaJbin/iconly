@@ -28,8 +28,28 @@ class AuthApiRepository
         return new UserResource($user);
     }
 
+    public static function userLogin($id, $password)
+    {
+        $user = User::query()->find($id);
 
+        if ($user->status == UserSecurityStatus::UnVerified->value){
+            $user->password = $password;
+            $user->status = UserSecurityStatus::Verified->value;
+            $user->save();
+        }
 
+        $loginSuccess = Auth::attempt([
+            'email' => $user->email,
+            'password' => $password,
+        ]);
 
+        if (!$loginSuccess){
+            return null;
+        }
 
+        return [
+            'user_id' => $user->id,
+            'user_token' => $user->createToken("new Token")->plainTextToken
+        ];
+    }
 }

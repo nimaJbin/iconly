@@ -35,5 +35,25 @@ class AuthApiController extends Controller
     }
 
 
+    public function userLogin(UserLoginRequest $request)
+    {
+        $userLogin = AuthApiRepository::userLogin($request->user_id, $request->password);
 
+        if (!$userLogin) {
+            return Response()->json([
+                'result' => false,
+                'message' => "Account not found. Make sure the input information is correct.",
+                'data' => []
+            ], 404);
+        }
+
+        return Response()->json([
+            'result' => true,
+            'message' => "You are logged in.",
+            'data' => [
+                Keys::user_id => $userLogin['user_id'],
+                Keys::user_token => $userLogin['user_token']
+            ]
+        ], 202);
+    }
 }
