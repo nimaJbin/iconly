@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\HomeApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Api')->group(function (){
     Route::post('get_user_email', [AuthApiController::class, 'getUserEmail']);
     Route::post('user_login', [AuthApiController::class, 'userLogin']);
+});
+
+Route::namespace('Api')->middleware(['auth:sanctum'])->group(function (){
+    Route::get('homepage', [HomeApiController::class, 'homepage']);
+    Route::post('export_icons', [HomeApiController::class, 'exportIcons']);
 });
