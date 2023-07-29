@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('icons', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('name')->nullable();
-            $table->string('status')->default(\App\Enums\UserSecurityStatus::UnVerified->value);
-            $table->string('password')->nullable();
-            $table->rememberToken();
+            $table->string('title');
+            $table->string('url');
+            $table->string('file_name');
+            $table->string('status')->default(\App\Enums\IconStatus::Active->value);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('icons');
     }
 };
