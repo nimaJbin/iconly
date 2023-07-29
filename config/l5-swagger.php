@@ -198,6 +198,12 @@ return [
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
                 */
+                'sanctum' => [
+                    'type' => 'apiKey',
+                    'description' => 'Bearer <token>',
+                    'name' => 'Authorization',
+                    'in' => 'header',
+                ],
             ],
             'security' => [
                 /*
