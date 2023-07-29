@@ -1,0 +1,54 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/user_login": {
+            "post": {
+                "tags": [
+                    "Auth Api"
+                ],
+                "description": "User Login",
+                "operationId": "e197e3fab4a6909677805d20f9209592",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "Enter user ID",
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "description": "Enter password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Its Ok",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "result": true,
+                                    "message": "You are logged in.",
+                                    "data": [
+                                        "User Data And User token"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
