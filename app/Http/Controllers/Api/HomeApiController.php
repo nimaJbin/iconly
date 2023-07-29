@@ -28,7 +28,7 @@ class HomeApiController extends Controller
             'result' => true,
             'message' => 'The zip file is ready.',
             'data' => [
-                Keys::zip_file => HomeApiRepository::createExcel(json_decode($request->icons))
+                Keys::zip_file => HomeApiRepository::createExcel(json_decode($request->icons), auth()->user())
             ]
         ], 200);
     }

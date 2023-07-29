@@ -12,7 +12,7 @@ use ZipArchive;
 class HomeApiRepository
 {
     const ICONS_FOLDER = 'images/icons/';
-    const EXPORT_ICONS_TEMP_FOLDER = 'temp/exported_icons';
+    const EXPORT_ICONS_TEMP_FOLDER = 'file/exported_icons';
 
     public static function iconList()
     {
@@ -24,13 +24,16 @@ class HomeApiRepository
     }
 
 
-    public static function createExcel($icons)
+    public static function createExcel($icons, $user)
     {
         $zip = new ZipArchive();
 
-        $zipName = '/icons.zip';
+        $zipName = '/' . strstr($user->email, '@', true) . '-icons.zip';
         $fileName = self::EXPORT_ICONS_TEMP_FOLDER . $zipName;
 
+        if(File::exists(public_path($fileName))){
+            File::delete(public_path($fileName));
+        }
 
         if ($zip->open(public_path($fileName), ZipArchive::CREATE) == TRUE) {
 
@@ -41,7 +44,7 @@ class HomeApiRepository
                     $path = public_path(self::ICONS_FOLDER . $icon->file_name);
 
                     if (file_exists($path)) {
-                        $zip->addFile($path);
+                        $zip->addFile($path, $icon->file_name);
                     }
                 }
             }
